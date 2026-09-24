@@ -1,3 +1,4 @@
 job_id	pid	log_file	purpose
 job-20260924-161643-590bd027	26616	.temp\background-registry-20260925-001638-33284-edf0d4f0.-job-20260924-161643-590bd027.log	native-sim retry build
 job-20260924-163337-78f369ee	30816	.temp\background-registry-20260925-001638-33284-edf0d4f0.-job-20260924-163337-78f369ee.log	native-sim retry after metro fix
+job-20260924-170926-40de6ac3	32280	.temp\background-registry-20260925-001638-33284-edf0d4f0.-job-20260924-170926-40de6ac3.log	native-sim session with agent-device
