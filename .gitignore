@@ -28,6 +28,9 @@ yarn-error.*
 # macOS
 .DS_Store
 *.pem
+# certificate.pem is the PUBLIC code-signing cert — it must ship in the repo
+# (it gets embedded into the app at build time). Only private keys stay out.
+!certs/certificate.pem
 
 # local env files
 .env*.local
