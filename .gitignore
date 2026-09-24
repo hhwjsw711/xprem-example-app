@@ -46,4 +46,3 @@ ios/
 private-key.pem
 
 dist/
-package-lock.json
