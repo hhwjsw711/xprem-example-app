@@ -16,6 +16,8 @@ function sha256(file) {
   return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("base64")
     .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
+// Server-visible paths must use forward slashes (Windows metadata.json has backslashes)
+const posix = (p) => p.replace(/\\/g, "/");
 function md5(file) {
   return crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
 }
@@ -23,12 +25,12 @@ function md5(file) {
 async function main() {
   const metadata = JSON.parse(fs.readFileSync(path.join(DIST_DIR, "metadata.json"), "utf8"));
   const files = [];
-  const bundleRel = metadata.fileMetadata[PLATFORM].bundle;
+  const bundleRel = posix(metadata.fileMetadata[PLATFORM].bundle);
   const bundlePath = path.join(DIST_DIR, bundleRel);
   files.push({ path: bundleRel, hash: sha256(bundlePath), key: md5(bundlePath), ext: "hbc", role: "launch" });
   for (const a of metadata.fileMetadata[PLATFORM].assets) {
-    const p = path.join(DIST_DIR, a.path);
-    files.push({ path: a.path, hash: sha256(p), key: md5(p), ext: a.ext || "bin", role: "asset" });
+    const p = path.join(DIST_DIR, posix(a.path));
+    files.push({ path: posix(a.path), hash: sha256(p), key: md5(p), ext: a.ext || "bin", role: "asset" });
   }
   for (const f of ["metadata.json", "expoConfig.json"]) {
     const p = path.join(DIST_DIR, f);
